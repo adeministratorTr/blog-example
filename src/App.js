@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import JokeList from './containers/JokeList';
+import { Home as HomePage } from './containers/Home';
 
 import logo from './logo.svg';
 import './App.css';
@@ -23,8 +23,10 @@ class App extends Component {
 
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" component={JokeList} />
-            {/* And other pages go on */}
+            <Route exact path="/" component={HomePage} />
+            {/* <Route path="/posts" component={List} /> */}
+            {/* <Route exact path="/posts/:id" component={Post} /> */}
+
             <Route component={NotFound} />
           </Switch>
         </BrowserRouter>
