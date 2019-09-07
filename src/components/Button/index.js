@@ -5,25 +5,41 @@ import './style.css';
 export default class Button extends React.Component {
   renderAddButton() {
     return(
-      <button className={'btn btn-add'} onClick={this.props.onClick}>{this.props.buttonText}</button>
+      <button 
+        className={'btn btn-add'} 
+        disabled={this.props.disabled} 
+        onClick={this.props.onClick}>{this.props.buttonText}
+      </button>
     )
   }
   
   renderDeleteButton() {
     return(
-      <button className={'btn btn-delete'} onClick={this.props.onClick}>{this.props.buttonText}</button>
+      <button 
+        className={'btn btn-delete'} 
+        disabled={this.props.disabled} 
+        onClick={this.props.onClick}>{this.props.buttonText}
+      </button>
     )
   }
 
   renderStartButton() {
     return(
-      <button className={'btn btn-start'} onClick={this.props.onClick}>{this.props.buttonText}</button>
+      <button 
+        className={'btn btn-start'} 
+        disabled={this.props.disabled} 
+        onClick={this.props.onClick}>{this.props.buttonText}
+      </button>
     )
   }
 
   renderRedirectButton() {
     return(
-      <button className={'btn btn-redirect'} onClick={this.props.onClick}>{this.props.buttonText}</button>
+      <button 
+        className={'btn btn-redirect'} 
+        disabled={this.props.disabled} 
+        onClick={this.props.onClick}>{this.props.buttonText}
+      </button>
     )
   }
 
