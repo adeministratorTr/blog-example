@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { Home as HomePage } from './containers/Home';
+import Home from './containers/Home';
 
 import logo from './logo.svg';
 import './App.css';
@@ -8,7 +8,6 @@ import './App.css';
 const NotFound = () => (
   <p>404:( Page not Found</p>
 )
-
 
 class App extends Component {
   render() {
@@ -23,7 +22,7 @@ class App extends Component {
 
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" component={HomePage} />
+            <Route exact path="/" component={Home} />
             {/* <Route path="/posts" component={List} /> */}
             {/* <Route exact path="/posts/:id" component={Post} /> */}
 
