@@ -1,31 +1,21 @@
-export const API_URL = 'http://api.icndb.com';
-export const TYPE = 'jokes';
+export const API_URL = 'https://jsonplaceholder.typicode.com';
 
-//1 joke with ID http://api.icndb.com/jokes/15
-//number of jokes http://api.icndb.com/jokes/random/3
-
-const getUrl = (url, params) => `${API_URL}/${TYPE}/${url}` + (params ? `&${params}` : '');
+//const getUrl = (url, params) => `${API_URL}/${TYPE}/${url}` + (params ? `&${params}` : '');
 
 const api = {
-  getRandomJokes(limit){
-    let url = `random/${limit}`;
-    return fetch(getUrl(url))
+  getAllPosts(){
+    return fetch(`${API_URL}/posts`)
       .then((response) => response.json())
-      .then(function (result) {
-        return result;
-      })
+      .then((result) => result)
       .catch(e => {
         return e;
     });
   },
 
-  getJoke(id) {
-    let url = `${id}`;
-    return fetch(getUrl(url))
+  getPostDetail(postId) {
+    return fetch(`${API_URL}/posts/${postId}`)
       .then((response) => response.json())
-      .then(function (result) {
-        return result;
-      })
+      .then((result) => result)
       .catch(e => {
         return e;
     });

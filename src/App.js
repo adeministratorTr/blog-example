@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+
 import Home from './containers/Home';
+import PostList from './containers/PostList';
 
 import logo from './logo.svg';
 import './App.css';
@@ -23,7 +25,7 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={Home} />
-            {/* <Route path="/posts" component={List} /> */}
+            <Route path="/posts" component={PostList} />
             {/* <Route exact path="/posts/:id" component={Post} /> */}
 
             <Route component={NotFound} />

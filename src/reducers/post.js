@@ -15,11 +15,10 @@ export default (state = initialState, action) => {
       }
     
     case types.POSTS_SUCCESS:
-      console.log('reducers/posts: ', action)
       return {
         ...state,
         isLoading: false,
-        posts: action,
+        posts: action.posts,
         error: false
       }
 
@@ -29,6 +28,9 @@ export default (state = initialState, action) => {
         isLoading: false,
         error: true
       }
+
+    default:
+      return state;
   }
 
 }

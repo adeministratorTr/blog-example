@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import post from 'reducers/joke';
+import post from 'reducers/post';
 
 export default combineReducers ({
   post
