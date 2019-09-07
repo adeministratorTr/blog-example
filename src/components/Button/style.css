@@ -1,0 +1,28 @@
+.btn {
+  border-radius: 0.5rem;
+  padding: .375rem .75rem;
+}
+
+.btn-add {
+  color: white;
+  background-color: blue; 
+  border-collapse: blue;
+}
+
+.btn-delete {
+  color: white;
+  background-color: red; 
+  border-collapse: red;
+}
+
+.btn-start {
+  color: white;
+  background-color: green; 
+  border-collapse: green;
+}
+
+.btn-redirect {
+  color: black;
+  background-color: yellow; 
+  border-collapse: yellow;
+}
