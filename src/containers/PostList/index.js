@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import memoize from 'memoize-one';
+import { debounce } from 'lodash';
 
 import { fetchAllPosts } from 'actions/post';
 
@@ -26,11 +27,11 @@ class PostList extends React.Component {
     this.handleSetSearchText(event.target.value)
   }
 
-  handleSetSearchText = (searchValue) => {
+  handleSetSearchText = debounce((searchValue) => {
     this.setState({
       filterText: searchValue.toLowerCase()
     })
-  }
+  }, 200)
 
 
   handleSearchClearClick = () => {
@@ -50,10 +51,9 @@ class PostList extends React.Component {
       <React.Fragment>
         {isLoading && <p>Loading...</p>}
         <div className="search-container">
-          <input className="search-box" 
-            type="text" 
-            maxLength='15' 
-            value={filterText} 
+          <input className="search-box"
+            type="text"
+            maxLength='15'
             onChange={this.handleSearchOnChange} />
           <Button type='delete' buttonText='Clear' onClick={this.handleSearchClearClick} />
         </div>
