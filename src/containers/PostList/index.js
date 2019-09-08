@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import { fetchAllPosts } from 'actions/post';
 
+import PostItem from 'components/PostItem';
+
 class PostList extends React.Component {
   componentDidMount() {
     this.props.fetchAllPosts();
@@ -16,7 +18,11 @@ class PostList extends React.Component {
 
         {!isLoading && postList && postList.length > 0 && 
           postList.map(post => 
-            <p key={post.id}>{post.body}</p>
+            <PostItem 
+              key={post.id}
+              title={post.title}
+              body={post.body}
+            />
           )
         }
       </React.Fragment>
