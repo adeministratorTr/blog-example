@@ -5,6 +5,9 @@ import memoize from 'memoize-one';
 import { fetchAllPosts } from 'actions/post';
 
 import PostItem from 'components/PostItem';
+import Button from 'components/Button';
+
+import './style.css';
 
 class PostList extends React.Component {
   state = {
@@ -20,9 +23,22 @@ class PostList extends React.Component {
   }
 
   handleSearchOnChange = (event) => {
+    this.handleSetSearchText(event.target.value)
+  }
+
+  handleSetSearchText = (searchValue) => {
     this.setState({
-      filterText: event.target.value.toLowerCase()
+      filterText: searchValue.toLowerCase()
     })
+  }
+
+
+  handleSearchClearClick = () => {
+    this.clearSearchFilter()
+  }
+
+  clearSearchFilter = () => {
+    this.setState({ filterText: '' })
   }
 
   render() {
@@ -33,7 +49,14 @@ class PostList extends React.Component {
     return(
       <React.Fragment>
         {isLoading && <p>Loading...</p>}
-        <input type="text" value={filterText} onChange={this.handleSearchOnChange} />
+        <div className="search-container">
+          <input className="search-box" 
+            type="text" 
+            maxlength='15' 
+            value={filterText} 
+            onChange={this.handleSearchOnChange} />
+          <Button type='delete' buttonText='Clear' onClick={this.handleSearchClearClick} />
+        </div>
 
         {!isLoading && filteredList && filteredList.length > 0 && 
           <React.Fragment>
@@ -46,7 +69,7 @@ class PostList extends React.Component {
             )}
           </React.Fragment>
         }
-        {!isLoading && filteredList.length === 0 && <p>No result</p> }
+        {!isLoading && filteredList.length === 0 && <p>No result for {filterText} </p> }
       </React.Fragment>
     )
   }
