@@ -52,7 +52,7 @@ class PostList extends React.Component {
         <div className="search-container">
           <input className="search-box" 
             type="text" 
-            maxlength='15' 
+            maxLength='15' 
             value={filterText} 
             onChange={this.handleSearchOnChange} />
           <Button type='delete' buttonText='Clear' onClick={this.handleSearchClearClick} />
