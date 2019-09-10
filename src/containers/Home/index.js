@@ -1,5 +1,5 @@
 import React from 'react';
-import { generatePath } from 'react-router-dom';
+import generatePath from 'react-router-dom/generatePath';
 
 import Button from 'components/Button';
 import './style.css';
@@ -25,9 +25,9 @@ export default class Home extends React.Component {
           <li>Showing post detail,</li>
           <li>Creating and deleting posts</li>
         </ul>
-        <Button type='redirect'
+        <Button type="redirect"
           onClick={this.handleRedirectButtonClick}
-          buttonText='Go to Blog Posts Page' />
+          buttonText="Go to Blog Posts Page" />
       </React.Fragment>
     )
   }
