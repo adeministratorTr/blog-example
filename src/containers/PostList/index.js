@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import memoize from 'memoize-one';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
+import generatePath from 'react-router-dom/generatePath';
 
 import { fetchAllPosts } from 'actions/post';
 
@@ -42,6 +43,10 @@ class PostList extends React.Component {
     this.setState({ filterText: '' })
   }
 
+  handleReadMoreClick(postId) {
+    return this.props.history.push(generatePath("/posts/:id", {id: postId}));
+  }
+
   render() {
     const { filterText } = this.state;
     const { postList, isLoading } = this.props;
@@ -53,21 +58,24 @@ class PostList extends React.Component {
         <div className="search-container">
           <input className="search-box"
             type="text"
-            maxLength='15'
+            maxLength="15"
+            placeholder="Search in Titles"
             onChange={this.handleSearchOnChange} />
-          <Button type='delete' buttonText='Clear' onClick={this.handleSearchClearClick} />
+          <Button type="delete" buttonText="Clear" onClick={this.handleSearchClearClick} />
         </div>
 
         {!isLoading && filteredList && filteredList.length > 0 && 
-          <React.Fragment>
+          <div className="posts-container">
+            <h1>Here our awesome Blog</h1>
             {filteredList.map(post => 
-              <PostItem 
-                key={post.id} 
+              <PostItem
+                key={post.id}
                 title={post.title}
-                body={post.body}
+                body={post.body.substr(0, 10) + '...'}
+                onClick={this.handleReadMoreClick.bind(this, post.id)}
               />
             )}
-          </React.Fragment>
+          </div>
         }
         {!isLoading && filteredList.length === 0 && <p>No result for {filterText} </p> }
       </React.Fragment>

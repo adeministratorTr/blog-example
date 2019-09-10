@@ -12,7 +12,7 @@ const PostItem = (props) =>
       <Button 
         type="redirect"
         buttonText="Read More.."
-        onClick={props.handleReadMoreClick}
+        onClick={props.onClick}
         />
     </div>
   </div>

@@ -4,9 +4,9 @@ export const types = {
   POSTS_START: 'POSTS/FETCH_POSTS_START',
   POSTS_SUCCESS: 'POSTS/FETCH_POSTS_SUCCESS',
   POSTS_ERROR: 'POSTS/FETCH_POSTS_ERROR',
-  GET_POST_START: 'POST/FETCH_SELECTED_POST_START',
-  GET_POST_SUCCESS: 'POST/FETCH_SELECTED_POST_SUCCESS',
-  GET_POST_ERROR: 'POST/FETCH_SELECTED_POST_ERROR'
+  FETCH_POST_START: 'POST/FETCH_SELECTED_POST_START',
+  FETCH_POST_SUCCESS: 'POST/FETCH_SELECTED_POST_SUCCESS',
+  FETCH_POST_ERROR: 'POST/FETCH_SELECTED_POST_ERROR'
 }
 
 export const fetchAllPosts = () => dispatch => {
@@ -27,18 +27,18 @@ export const fetchAllPosts = () => dispatch => {
 
 export const fetchPostDetail = (postId) => dispatch => {
   dispatch({
-    type: types.GET_POST_START
+    type: types.FETCH_POST_START
   });
   return api.getPostDetail(postId)
     .then((result) => {
       dispatch({
-        type: types.GET_POST_SUCCESS,
+        type: types.FETCH_POST_SUCCESS,
         post: result
       })
     })
     .catch((e) => {
       dispatch({
-        type: types.GET_POST_ERROR
+        type: types.FETCH_POST_ERROR
       }, () => { console.log('API Post Error: ', e) })
     })
 }

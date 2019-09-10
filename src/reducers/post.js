@@ -29,6 +29,27 @@ export default (state = initialState, action) => {
         error: true
       }
 
+    case types.FETCH_POST_START:
+      return {
+        ...state,
+        isLoading: true
+      }
+    
+    case types.FETCH_POST_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        post: action.post,
+        error: false
+      }
+
+    case types.FETCH_POST_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: true
+      }
+
     default:
       return state;
   }

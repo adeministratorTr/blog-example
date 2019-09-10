@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Home from './containers/Home';
 import PostList from './containers/PostList';
+import PostDetail from './containers/PostDetail';
 
 import logo from './logo.svg';
 import './App.css';
@@ -25,9 +26,8 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/posts" component={PostList} />
-            {/* <Route exact path="/posts/:id" component={Post} /> */}
-
+            <Route exact path="/posts" component={PostList} />
+            <Route exact path="/posts/:id" component={PostDetail} />
             <Route component={NotFound} />
           </Switch>
         </BrowserRouter>
