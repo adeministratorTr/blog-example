@@ -1,6 +1,7 @@
 .btn {
   border-radius: 0.5rem;
   padding: .375rem .75rem;
+  outline: none;
 }
 
 .btn-add {
