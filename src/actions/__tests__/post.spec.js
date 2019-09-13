@@ -38,7 +38,7 @@ describe("Reducer tests", () => {
       }
     ]
 
-    const store = mockStore({ todos: [] })
+    const store = mockStore({ posts: [] })
 
     return store.dispatch(postActions.fetchAllPosts())
       .then(() => {
