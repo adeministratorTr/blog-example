@@ -11,15 +11,15 @@ class PostDetail extends React.Component {
   render() {
     const { isLoading, post } = this.props;
     return(
-      <React.Fragment>
+      <div className="post-container">
         {isLoading && <p>Loading...</p>}
         {!isLoading && post &&
-        <React.Fragment>
+        <div className="post">
           <h1>{post.title}</h1>
           <p>{post.body}</p>
-        </React.Fragment>
+        </div>
         }
-      </React.Fragment>
+      </div>
     )
   }
 }

@@ -16,7 +16,7 @@ export default class Home extends React.Component {
 
   render() {
     return(
-      <React.Fragment>
+      <div className="home-page-container">
         <h1>Welcome to the Blog-Post Project</h1>
         <h2>Start to Project please click the button. It creates some blog posts for you</h2>
         <p>This project includes:</p>
@@ -28,7 +28,7 @@ export default class Home extends React.Component {
         <Button type="redirect"
           onClick={this.handleRedirectButtonClick}
           buttonText="Go to Blog Posts Page" />
-      </React.Fragment>
+      </div>
     )
   }
 }
