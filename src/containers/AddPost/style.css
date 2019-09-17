@@ -1,0 +1,21 @@
+.form-container {
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.form-item {
+  padding: 10px;
+}
+
+.form-item-error {
+  color: red;
+}
+
+textarea {
+  min-height: 150px;
+  min-width: 350px;
+  height: 250px;
+  width: 450px;
+  max-height: 450px;
+  max-width: 750px;
+}

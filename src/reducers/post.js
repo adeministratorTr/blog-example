@@ -3,7 +3,8 @@ import { types } from 'actions/post';
 const initialState = {
   posts: [],
   isLoading: false,
-  error: false
+  error: false,
+  isSuccess: false
 }
 
 export default (state = initialState, action) => {
@@ -47,6 +48,28 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        error: true
+      }
+      
+    
+    case types.ADD_POST_START:
+      return {
+        ...state,
+        isLoading: true
+      }
+
+    case types.ADD_POST_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: action.addPostRespone.status === 201
+      }
+
+    case types.ADD_POST_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: false,
         error: true
       }
 
