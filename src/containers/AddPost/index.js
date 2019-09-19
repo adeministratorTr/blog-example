@@ -75,7 +75,7 @@ class AddPost extends React.Component {
 
   render() {
     const { header, body, shouldAddButtonDisabled } = this.state;
-    const { isLoading, isSuccess } = this.props;
+    const { isLoading, isAddPostSuccess } = this.props;
     return(
       <div className="form-container">
         <form onSubmit={this.handleSubmitForm}>
@@ -103,7 +103,7 @@ class AddPost extends React.Component {
               onChange={this.handleChange} />
             {body.isError && <p className="form-item-error">Body must be at least {body.minCharacter} character</p>}
           </div>
-          {isSuccess
+          {isAddPostSuccess
             ? <div>
                 <p>Your post added successfully</p>
                 <Button type="redirect" buttonText="Add another" onClick={this.handleAddAnotherPostClick} />
@@ -121,7 +121,7 @@ class AddPost extends React.Component {
 export default connect(
   (state) => ({
     isLoading: state.post.isLoading,
-    isSuccess: state.post.isSuccess
+    isAddPostSuccess: state.post.isAddPostSuccess
   }),
   {
     addPost

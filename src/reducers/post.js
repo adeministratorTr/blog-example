@@ -4,7 +4,8 @@ const initialState = {
   posts: [],
   isLoading: false,
   error: false,
-  isSuccess: false
+  isAddPostSuccess: false,
+  isDeletePostSuccess: false
 }
 
 export default (state = initialState, action) => {
@@ -62,14 +63,37 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        isSuccess: action.addPostRespone.status === 201
+        isAddPostSuccess: action.addPostRespone.status === 201
       }
 
     case types.ADD_POST_ERROR:
       return {
         ...state,
         isLoading: false,
-        isSuccess: false,
+        isAddPostSuccess: false,
+        error: true
+      }
+
+    case types.DELETE_POST_START:
+      return {
+        ...state,
+        isLoading: true,
+        isDeletePostSuccess: false,
+        error: true
+      }
+
+    case types.DELETE_POST_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isDeletePostSuccess: action.addPostRespone.status === 200,
+      }
+
+    case types.DELETE_POST_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        isDeletePostSuccess: false,
         error: true
       }
 

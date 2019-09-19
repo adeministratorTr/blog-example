@@ -9,7 +9,10 @@ export const types = {
   FETCH_POST_ERROR: 'POST/FETCH_SELECTED_POST_ERROR',
   ADD_POST_START: 'POST/ADD_POST_START',
   ADD_POST_SUCCESS: 'POST/ADD_POST_SUCCESS',
-  ADD_POST_ERROR: 'POST/ADD_POST_ERROR'
+  ADD_POST_ERROR: 'POST/ADD_POST_ERROR',
+  DELETE_POST_START: 'POST/DELETE_POST_START',
+  DELETE_POST_SUCCESS: 'POST/DELETE_POST_SUCCESS',
+  DELETE_POST_ERROR: 'POST/DELETE_POST_ERROR'
 }
 
 export const fetchAllPosts = () => dispatch => {
@@ -54,5 +57,26 @@ export const addPost = () => dispatch => {
         type: types.ADD_POST_SUCCESS,
         addPostRespone: response
       })
+    })
+    .catch((e) => {
+      dispatch({
+        type: types.ADD_POST_ERROR
+      }, () => { console.log('API Post Error: ', e) })
+    })
+}
+
+export const deletePost = (postId) => dispatch => {
+  dispatch({ type: types.DELETE_POST_START })
+  return api.deletePost(postId)
+    .then((response) => {
+      dispatch({
+        type: types.DELETE_POST_SUCCESS,
+        addPostRespone: response
+      })
+    })
+    .catch((e) => {
+      dispatch({
+        type: types.DELETE_POST_ERROR
+      }, () => { console.log('API Post Error: ', e) })
     })
 }

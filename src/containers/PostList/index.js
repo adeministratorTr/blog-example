@@ -4,7 +4,7 @@ import memoize from 'memoize-one';
 import debounce from 'lodash/debounce';
 import generatePath from 'react-router-dom/generatePath';
 
-import { fetchAllPosts } from 'actions/post';
+import { fetchAllPosts, deletePost } from 'actions/post';
 
 import PostItem from 'components/PostItem';
 import Button from 'components/Button';
@@ -36,15 +36,46 @@ class PostList extends React.Component {
 
 
   handleSearchClearClick = () => {
-    this.clearSearchFilter()
+    this.clearSearchFilter();
   }
 
   clearSearchFilter = () => {
     this.setState({ filterText: '' })
   }
 
-  handleReadMoreClick(postId) {
+  getRandomArbitrary = (min, max) => {
+    return Math.random() * (max - min) + min;
+  }
+
+  randomDate = () => {
+    const earliestDay = '01-01-2010';
+    const currentDate = new Date().toLocaleDateString()
+    const newDate = new Date(this.getRandomArbitrary(new Date(earliestDay).getTime(), new Date(currentDate).getTime())).toLocaleDateString();
+    return newDate;
+}
+
+  createMockDate = () => {
+    return this.randomDate();
+  }
+
+  deletePost = (postId) => {
+    const deletePostResult = window.confirm("Are you sure to delete post?"); 
+    console.log('deleted item id: ', postId) // Leave it by purpose cuz delete endpoint doesnt really work
+    deletePostResult && this.props.deletePost(postId)
+    this.props.isDeletePostSuccess && console.log('You deleted post successfully')
+  }
+
+  handleDeletePostClick(postId) {
+    this.deletePost(postId)
+  }
+
+  redirectBlogDetailPage = (postId) => {
     return this.props.history.push(generatePath("/posts/:id", {id: postId}));
+  }
+
+
+  handleReadMoreClick(postId) {
+    this.redirectBlogDetailPage(postId);
   }
 
   render() {
@@ -54,7 +85,6 @@ class PostList extends React.Component {
 
     return(
       <React.Fragment>
-        {isLoading && <p>Loading...</p>}
         <div className="search-container">
           <input className="search-box"
             type="text"
@@ -64,6 +94,8 @@ class PostList extends React.Component {
           <Button type="delete" buttonText="Clear" onClick={this.handleSearchClearClick} />
         </div>
 
+        {isLoading && <p>Loading...</p>}
+
         {!isLoading && filteredList && filteredList.length > 0 && 
           <div className="posts-container">
             <h1>Here our awesome Blog</h1>
@@ -72,7 +104,9 @@ class PostList extends React.Component {
                 key={post.id}
                 title={post.title}
                 body={post.body.substr(0, 10) + '...'}
-                onClick={this.handleReadMoreClick.bind(this, post.id)}
+                date={this.createMockDate()}
+                onRedirectButtonClick={this.handleReadMoreClick.bind(this, post.id)}
+                onDeleteButtonClick={this.handleDeletePostClick.bind(this, post.id)}
               />
             )}
           </div>
@@ -87,9 +121,11 @@ class PostList extends React.Component {
 export default connect(
   (state) => ({
     postList: state.post.posts,
-    isLoading: state.post.isLoading
+    isLoading: state.post.isLoading,
+    isDeletePostSuccess: state.post.isDeletePostSuccess
   }),
   {
-    fetchAllPosts
+    fetchAllPosts,
+    deletePost
   }
 )(PostList);

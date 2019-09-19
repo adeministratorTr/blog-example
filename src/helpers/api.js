@@ -34,6 +34,12 @@ const api = {
       }),
       headers: headerOptions
     })
+  },
+
+  deletePost(postId) {
+    return fetch(`${API_URL}/posts/${postId}`, {
+      method: 'DELETE',
+    })
   }
 }
 
