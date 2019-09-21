@@ -22,18 +22,23 @@ class PostList extends React.Component {
   );
   
   componentDidMount() {
-    this.props.fetchAllPosts();
+    this.props.fetchAllPosts()
+      .then(console.log('props:', this.props.postList))
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log('prevProps: ', prevProps)
   }
 
   handleSearchOnChange = (event) => {
     this.handleSetSearchText(event.target.value)
   }
 
-  handleSetSearchText = debounce((searchValue) => {
+  handleSetSearchText = (searchValue) => {
     this.setState({
       filterText: searchValue.toLowerCase()
     })
-  }, 200)
+  }
 
   handleSearchClearClick = () => {
     this.clearSearchFilter();
