@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import memoize from 'memoize-one';
 import debounce from 'lodash/debounce';
 import generatePath from 'react-router-dom/generatePath';
 
 import { fetchAllPosts, deletePost } from 'actions/post';
-
 import PostItem from 'components/PostItem';
 import Button from 'components/Button';
 
@@ -14,29 +12,37 @@ import './style.css';
 class PostList extends React.Component {
   state = {
     filterText: '',
+    allPosts: this.props.postList,
     showDeletePostModal: false
   }
-
-  filter = memoize(
-    (postList, filterText) => postList.filter(item => item.title.includes(filterText))
-  );
   
   componentDidMount() {
     this.props.fetchAllPosts()
-      .then(console.log('props:', this.props.postList))
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('prevProps: ', prevProps)
+  componentDidUpdate(prevProps) {
+    if (this.props.postList !== prevProps.postList) {
+      this.setState({
+        allPosts: this.props.postList
+      })
+    }
   }
 
   handleSearchOnChange = (event) => {
     this.handleSetSearchText(event.target.value)
   }
 
+  filterPostList = debounce(() => {
+    this.setState({
+      allPosts: this.props.postList.filter(post => post.title.includes(this.state.filterText))
+    })
+   }, 200)
+
   handleSetSearchText = (searchValue) => {
     this.setState({
       filterText: searchValue.toLowerCase()
+    }, () => {
+      this.filterPostList()
     })
   }
 
@@ -45,7 +51,11 @@ class PostList extends React.Component {
   }
 
   clearSearchFilter = () => {
-    this.setState({ filterText: '' })
+    this.setState({ 
+      filterText: '' 
+    }, () => {
+      this.filterPostList()
+    })
   }
 
   getRandomArbitrary = (min, max) => {
@@ -101,9 +111,8 @@ class PostList extends React.Component {
   }
 
   render() {
-    const { filterText, showDeletePostModal } = this.state;
-    const { postList, isLoading } = this.props;
-    const filteredList = this.filter(postList, filterText);
+    const { filterText, showDeletePostModal, allPosts } = this.state;
+    const { isLoading } = this.props;
 
     return(
       <React.Fragment>
@@ -111,6 +120,7 @@ class PostList extends React.Component {
           <input className="search-box"
             type="text"
             maxLength="15"
+            value={this.state.filterText}
             placeholder="Search in Titles"
             onChange={this.handleSearchOnChange} />
           <Button type="delete" buttonText="Clear" onClick={this.handleSearchClearClick} />
@@ -120,10 +130,10 @@ class PostList extends React.Component {
 
         {!isLoading && showDeletePostModal && this.renderDeletePost()}
 
-        {!isLoading && filteredList && filteredList.length > 0 && 
+        {!isLoading && allPosts && allPosts.length > 0 && 
           <div className="posts-container">
             <h1>Here our awesome Blog</h1>
-            {filteredList.map(post => 
+            {allPosts.map(post => 
               <PostItem
                 key={post.id}
                 title={post.title}
@@ -135,7 +145,7 @@ class PostList extends React.Component {
             )}
           </div>
         }
-        {!isLoading && filteredList.length === 0 && 
+        {!isLoading && allPosts.length === 0 && 
           <p className="no-result">No result for {filterText} </p> }
       </React.Fragment>
     )
