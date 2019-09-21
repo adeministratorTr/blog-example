@@ -1,6 +1,6 @@
 # Blog Project
 
-Its an little Blog app that gets posts, shows the detail of the post and add new post.
+Its an little Blog app that gets posts, shows the detail of the post, add new post and delete it.
 
 [React-redux-boilerplate](https://github.com/adeministratorTr/react-redux-boilerplate) project used as an template.
 
