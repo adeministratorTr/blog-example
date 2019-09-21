@@ -4,9 +4,17 @@
   flex-direction: column;
 }
 
+.search-container {
+  display: flex;
+  position: sticky;
+  top: 0;
+  background: #282c34;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
 .search-box {
-  width: 250px;
-  height: 20px;
+  padding: .375rem .75rem;
   margin: 10px;
 }
 
