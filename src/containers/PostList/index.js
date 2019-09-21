@@ -13,7 +13,8 @@ import './style.css';
 
 class PostList extends React.Component {
   state = {
-    filterText: ''
+    filterText: '',
+    showDeletePostModal: false
   }
 
   filter = memoize(
@@ -34,7 +35,6 @@ class PostList extends React.Component {
     })
   }, 200)
 
-
   handleSearchClearClick = () => {
     this.clearSearchFilter();
   }
@@ -52,17 +52,31 @@ class PostList extends React.Component {
     const currentDate = new Date().toLocaleDateString()
     const newDate = new Date(this.getRandomArbitrary(new Date(earliestDay).getTime(), new Date(currentDate).getTime())).toLocaleDateString();
     return newDate;
-}
+  }
 
   createMockDate = () => {
     return this.randomDate();
   }
 
+  hideModal = () => {
+    if(this.props.isDeletePostSuccess) {
+      this.setState({
+        showDeletePostModal: true
+      }, () => {
+        setTimeout(() => {
+          this.setState({
+            showDeletePostModal: false
+          })
+        }, 1500);
+      })
+    }
+  }
+
   deletePost = (postId) => {
-    const deletePostResult = window.confirm("Are you sure to delete post?"); 
+    const deletePostResult = window.confirm("Are you sure to delete post?")
     console.log('deleted item id: ', postId) // Leave it by purpose cuz delete endpoint doesnt really work
     deletePostResult && this.props.deletePost(postId)
-    this.props.isDeletePostSuccess && console.log('You deleted post successfully')
+    this.hideModal()
   }
 
   handleDeletePostClick(postId) {
@@ -73,13 +87,16 @@ class PostList extends React.Component {
     return this.props.history.push(generatePath("/posts/:id", {id: postId}));
   }
 
-
   handleReadMoreClick(postId) {
     this.redirectBlogDetailPage(postId);
   }
 
+  renderDeletePost() {
+    return <p>Post deleted successfully!</p>
+  }
+
   render() {
-    const { filterText } = this.state;
+    const { filterText, showDeletePostModal } = this.state;
     const { postList, isLoading } = this.props;
     const filteredList = this.filter(postList, filterText);
 
@@ -95,6 +112,8 @@ class PostList extends React.Component {
         </div>
 
         {isLoading && <p>Loading...</p>}
+
+        {!isLoading && showDeletePostModal && this.renderDeletePost()}
 
         {!isLoading && filteredList && filteredList.length > 0 && 
           <div className="posts-container">
