@@ -1,0 +1,10 @@
+.header-container {
+  display: inline-flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.header-container a {
+  color: white;
+  text-decoration: none;
+}

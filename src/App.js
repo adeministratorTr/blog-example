@@ -5,8 +5,8 @@ import Home from './containers/Home';
 import PostList from './containers/PostList';
 import PostDetail from './containers/PostDetail';
 import AddPost from './containers/AddPost';
+import Header from 'containers/Header';
 
-import logo from './logo.svg';
 import './App.css';
 
 const NotFound = () => (
@@ -18,10 +18,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
+          <Header />
         </header>
 
         <BrowserRouter>
