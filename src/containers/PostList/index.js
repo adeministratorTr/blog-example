@@ -145,7 +145,7 @@ class PostList extends React.Component {
             )}
           </div>
         }
-        {!isLoading && allPosts.length === 0 && 
+        {!isLoading && allPosts.length === 0 && filterText.length > 0 &&
           <p className="no-result">No result for {filterText} </p> }
       </React.Fragment>
     )
