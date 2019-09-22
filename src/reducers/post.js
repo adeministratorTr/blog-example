@@ -8,6 +8,22 @@ const initialState = {
   isDeletePostSuccess: false
 }
 
+//Dont do it at work :)
+let dateList = [];
+
+function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+function randomDate(numberOfItems) {
+  const earliestDay = '01-01-2010';
+  const currentDate = new Date().toLocaleDateString()
+  for(let i=0; i<numberOfItems; i++) {
+    const newDate = new Date(getRandomArbitrary(new Date(earliestDay).getTime(), new Date(currentDate).getTime())).toLocaleDateString();
+    dateList.push(newDate)
+  }
+}
+
 export default (state = initialState, action) => {
   switch(action.type) {
     case types.POSTS_START:
@@ -17,10 +33,12 @@ export default (state = initialState, action) => {
       }
     
     case types.POSTS_SUCCESS:
+      randomDate(action.posts.length)
       return {
         ...state,
         isLoading: false,
         posts: action.posts,
+        dateList,
         error: false
       }
 

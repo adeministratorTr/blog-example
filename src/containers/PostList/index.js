@@ -58,21 +58,6 @@ class PostList extends React.Component {
     })
   }
 
-  getRandomArbitrary = (min, max) => {
-    return Math.random() * (max - min) + min;
-  }
-
-  randomDate = () => {
-    const earliestDay = '01-01-2010';
-    const currentDate = new Date().toLocaleDateString()
-    const newDate = new Date(this.getRandomArbitrary(new Date(earliestDay).getTime(), new Date(currentDate).getTime())).toLocaleDateString();
-    return newDate;
-  }
-
-  createMockDate = () => {
-    return this.randomDate();
-  }
-
   hideModal = () => {
     if(this.props.isDeletePostSuccess) {
       this.setState({
@@ -112,7 +97,7 @@ class PostList extends React.Component {
 
   render() {
     const { filterText, showDeletePostModal, allPosts } = this.state;
-    const { isLoading } = this.props;
+    const { isLoading, dateList } = this.props;
 
     return(
       <React.Fragment>
@@ -138,7 +123,7 @@ class PostList extends React.Component {
                 key={post.id}
                 title={post.title}
                 body={post.body.substr(0, 10) + '...'}
-                date={this.createMockDate()}
+                date={dateList[post.id]}
                 onRedirectButtonClick={this.handleReadMoreClick.bind(this, post.id)}
                 onDeleteButtonClick={this.handleDeletePostClick.bind(this, post.id)}
               />
@@ -156,6 +141,7 @@ export default connect(
   (state) => ({
     postList: state.post.posts,
     isLoading: state.post.isLoading,
+    dateList: state.post.dateList,
     isDeletePostSuccess: state.post.isDeletePostSuccess
   }),
   {
